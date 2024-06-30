@@ -9,7 +9,9 @@ import Studentlist from "./Studentlist";
 import {
     useLocation,
     useNavigate,
-    Link
+    Link,
+    Route,
+    Routes
 } from "react-router-dom";
 
 
@@ -68,7 +70,13 @@ const Dashboard= ()=>{
                     </div>
                     <div className="col-md-10 px-0 mx-0">
                         <Navbar/>
-                           <Home/> 
+                    <Routes>
+                            <Route exact path="/home" element={<Home /> }>
+                            </Route>
+                            <Route exact path="/student" element={<Studentlist/>}>
+                            </Route>
+                    </Routes>
+                           
                     </div>
                 </div>
 
