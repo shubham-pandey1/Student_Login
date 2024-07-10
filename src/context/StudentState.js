@@ -48,7 +48,7 @@ const addDetail = async(Name, Email, Phone, EnrollNo, DOA)=>{
 const deleteStudent = async(id)=>{
     // api call
 
-    const response = await fetch(`${host}/api/student/deletestudent/${id}`,{
+    await fetch(`${host}/api/student/deletestudent/${id}`,{
         method: "DELETE",
 
         headers:{
@@ -68,7 +68,7 @@ const deleteStudent = async(id)=>{
 const editDetail = async(id,Name, Email, Phone, EnrollNo, DOA)=>{
     // api call
 
-    const response = await fetch(`${host}/api/student/updatedetail/${id}`,{
+    await fetch(`${host}/api/student/updatedetail/${id}`,{
         method: "PUT",
 
         headers: {
