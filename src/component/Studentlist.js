@@ -2,6 +2,7 @@ import React,{useContext, useEffect,useRef, useState} from "react";
 import stuContext from "../context/stuContext";
 import { useNavigate } from "react-router-dom";
 
+
 const Studentlist = () => {
 
   const ref = useRef(null);
@@ -25,7 +26,7 @@ const Studentlist = () => {
       getDetails();
   else
       Navigate("/");
-},[]);
+},[getDetails, Navigate]);
 
 const scrollDown=()=>{
   window.scrollBy(0,500);
