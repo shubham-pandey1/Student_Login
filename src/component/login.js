@@ -8,7 +8,8 @@ const Login = () => {
 
     const handleSubmit= async(e)=>{
         e.preventDefault();
-            const host = "http://localhost:5000";
+            const host = process.env.REACT_APP_HOST||"http://localhost:5000";
+            
             const response = await fetch(`${host}/api/auth/login`, {
               method: "POST", // *GET, POST, PUT, DELETE, etc.
               
@@ -20,7 +21,7 @@ const Login = () => {
             });
             const json = await response.json();
             
-            console.log(json);
+        
             if(json.success){
                 //redirect
                 localStorage.setItem("token", json.authtoken);
@@ -31,7 +32,7 @@ const Login = () => {
                 alert("Invalid id or password!")
             }
           }
-          console.log("handlesubmit is run successfully");
+          
 
           const onChange=(e)=>{
             setCredentials({...credentials, [e.target.name]: e.target.value})

@@ -9,3 +9,8 @@
     color:#ced4da;
   
   }
+  @media only screen and(max-width:1000px){
+    .navbar-toggler-icon{
+        background-image:none !important;
+    }
+}

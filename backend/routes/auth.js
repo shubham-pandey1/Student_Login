@@ -62,13 +62,16 @@ router.post('/login',[
     body('email','Enter a valid email').isEmail(),
     body('password', 'Password cannot be blank').exists(),
 ], async(req,res)=>{
-
+    
     //if there is error in login, return bad request and the errors
     const errors = validationResult(req);
     let success = false;
     if(!errors.isEmpty()){
         return res.status(400).json({errors: errors.array()});
     }
+    
+
+    console.log("hello");
     const {email, password} = req.body;
     try{
         let user = await User.findOne({email});
@@ -108,5 +111,6 @@ try{
     res.status(500).send("Internal server error");
 }
 })
+
 
 module.exports = router
