@@ -1,10 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import stuContext from "../context/stuContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = ()=>{
     const context = useContext(stuContext);
+    const Navigate = useNavigate();
 
-    const {details} = context;
+    const {details, getDetails} = context;
+    
+    useEffect(()=>{
+        if(localStorage.getItem('token'))
+            getDetails();
+        else
+            Navigate("/");
+      },[ Navigate]);
+
     return(
         <div className="row w-100">
                         <div className="card mb-3 ms-4 bg-info-subtle" >

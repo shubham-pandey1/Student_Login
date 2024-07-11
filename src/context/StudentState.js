@@ -23,7 +23,7 @@ const StudentState =(props)=>{
     const json = await response.json();
 
     setDet(json);
-} 
+};
 
 //Route:2  Add detail of student
 const addDetail = async(Name, Email, Phone, EnrollNo, DOA)=>{

@@ -2,36 +2,53 @@ import React, { useState } from "react";
 import {useNavigate} from "react-router-dom";
 
 import '../App.css';
+
 const Login = () => {
     const [credentials,setCredentials] = useState({email:"", password:""});
     let Navigate = useNavigate();
 
-    const handleSubmit= async(e)=>{
+    
+    
+    const handleSubmit = async (e) => {
         e.preventDefault();
-            const host = process.env.REACT_APP_HOST||"http://localhost:5000";
-            
-            const response = await fetch(`${host}/api/auth/login`, {
-              method: "POST", // *GET, POST, PUT, DELETE, etc.
-              
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({email:credentials.email, password:credentials.password})
-              
-            });
-            const json = await response.json();
-            
-        
-            if(json.success){
-                //redirect
-                localStorage.setItem("token", json.authtoken);
-                console.log("Logged in Successfully","success");
-                Navigate("/dashboard");
-            }
-            else{
-                alert("Invalid id or password!")
-            }
+        const host = process.env.REACT_APP_HOST || "http://localhost:5000";
+      
+        try {
+          const response = await fetch(`${host}/api/auth/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: credentials.email, password: credentials.password }),
+          });
+      
+          if (!response.ok) {
+            // Handle non-successful response
+            const errorJson = await response.json();
+            console.error("Login Error:", errorJson);
+            alert("Invalid id or password!"); // Display user-friendly error message
+            return;
           }
+      
+          const json = await response.json();
+          if (json.success) {
+            // Login successful
+            localStorage.setItem("token", json.authtoken);
+            console.log("Logged in Successfully", "success");
+            Navigate("/dashboard");
+          } else {
+            // Handle backend error response indicating unsuccessful login
+            console.error("Login Error:", json);
+            alert("Invalid id or password!"); // Display user-friendly error message
+          }
+        } catch (error) {
+          // Handle fetch or network errors
+          console.error("Fetch Error:", error);
+          alert("Network error occurred. Please try again later."); // Display user-friendly error message
+        }
+      };
+      
+        
           
 
           const onChange=(e)=>{

@@ -31,7 +31,7 @@ const Dashboard= ()=>{
         }
         else
             Navigate("/");
-    },[getUser,Navigate]);
+    },[Navigate]);
 
     const handleLogout=()=>{
         localStorage.removeItem('token')

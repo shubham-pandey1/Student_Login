@@ -10,7 +10,7 @@ const Studentlist = () => {
   const Navigate = useNavigate();
   const context = useContext(stuContext);
   const {details,getDetails,deleteStudent, editDetail,addDetail} = context;
-  const pwd = "slkdflasf";
+  
   
 
   const [aDetail, setADetail] = useState({aName:"", aEmail:"", aPhone:"", aEnrollNo:"", aDOA:""});
@@ -26,7 +26,7 @@ const Studentlist = () => {
       getDetails();
   else
       Navigate("/");
-},[getDetails, Navigate]);
+},[ Navigate]);
 
 const scrollDown=()=>{
   window.scrollBy(0,500);
@@ -149,43 +149,51 @@ const onChangea=(e)=>{
       </div>
       <div className="row px-0 mx-0 mt-3 ">
         <div className="container px-5">
-          <table className="table stu">
-            <thead>
-            <tr key={pwd}>
-              <th className="col-md-1">Name</th>
-              <th className="col-md-2">Email</th>
-              <th className="col-md-1">Phone</th>
-              <th className="col-md-2">Enroll Number</th>
-              <th className="col-md-2">Date of admission</th>
-              <th className="col-md-2"></th>
-            </tr>
-            </thead> 
-            <tbody>
-              
-              
-              {details.map((detail)=>{
-                 return(
-                <>
-                <tr key={detail._id} className="bor px-0 mx-0 grid">
-                  <td>{detail.Name}</td>
-                  <td>{detail.Email}</td>
-                  <td>{detail.Phone}</td>
-                  <td>{detail.EnrollNo}</td>
-                  <td>{new Date(detail.DOA).toLocaleDateString()}</td>
-                  <td>
-                    <button type="button" className="btn border-0 text-warning"><i className="fa-light fa-pen me-1" onClick={()=>{updateDetail(detail)}}></i></button>
-                    <button type="button" className="btn border-0 text-warning"><i className="fa-sharp fa-light fa-trash ms-1" onClick={()=>{deleteStudent(detail._id)}}></i></button>
-                  </td>
-                  
-              </tr>
-              <br />
-              </>
-              
-                 )
-              })}
-              
-            </tbody>
-          </table>
+        <table className="table stu">
+  <thead>
+    <tr>
+      <th className="col-md-1">Name</th>
+      <th className="col-md-2">Email</th>
+      <th className="col-md-1">Phone</th>
+      <th className="col-md-2">Enroll Number</th>
+      <th className="col-md-2">Date of admission</th>
+      <th className="col-md-2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {details.map((detail) => (
+      <React.Fragment key={detail._id}>
+        <tr className="bor px-0 mx-0 grid">
+          <td>{detail.Name}</td>
+          <td>{detail.Email}</td>
+          <td>{detail.Phone}</td>
+          <td>{detail.EnrollNo}</td>
+          <td>{new Date(detail.DOA).toLocaleDateString()}</td>
+          <td>
+            <button
+              type="button"
+              className="btn border-0 text-warning"
+              onClick={() => { updateDetail(detail); }}
+            >
+              <i className="fa-light fa-pen me-1"></i>
+            </button>
+            <button
+              type="button"
+              className="btn border-0 text-warning"
+              onClick={() => { deleteStudent(detail._id); }}
+            >
+              <i className="fa-sharp fa-light fa-trash ms-1"></i>
+            </button>
+          </td>
+        </tr>
+        <tr key={`spacer-${detail._id}`}>
+          <td colSpan="6" className="bg-body-tertiary"><br /></td>
+        </tr>
+      </React.Fragment>
+    ))}
+  </tbody>
+</table>
+
         </div>
       </div>
       <button type="button" ref={ref} className="btn btn-warning mt-1 d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">

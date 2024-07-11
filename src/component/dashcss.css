@@ -50,11 +50,22 @@
     margin: 1px;
 }
 
+.table.stu {
+    border-collapse: collapse;
+  }
+  
+  .table.stu tr, .table.stu th, .table.stu td {
+    border: none;
+  }
+  
+
 th{
     padding-left: 40px;
-    color: gray;
+    color: gray !important;
     font-weight: 500;
     font-size: 15px;
+    background-color: rgb(248 249 250) !important;
+    text-align: center;
 }
 
 .bor td:first-child
